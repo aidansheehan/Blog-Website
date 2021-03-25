@@ -10,12 +10,15 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+let posts = [];
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
+  console.log(posts);
   res.render("home", {
     startingContent: homeStartingContent
   }
@@ -39,7 +42,8 @@ app.post("/compose", function(req, res) {
     title: req.body.postTitle,
     content: req.body.postBody
   };
-  res.redirect("/compose");
+  posts.push(post);
+  res.redirect("/");
 })
 
 
